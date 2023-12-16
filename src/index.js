@@ -9,6 +9,7 @@ app.get('/',async(req,res)=>{
     return res.json(' Api está ok')
 })
 const port = process.env.PORT||3000
-app.listen(3000,()=>{
-    console.log(process.env.JANAINA)
+
+app.listen(port,()=>{
+    console.log(`Servidor em pé na porta ${port}`)
 })
