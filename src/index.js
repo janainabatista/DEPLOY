@@ -1,24 +1,26 @@
-require('dotenv').config()
-const express = require('express')
-const knex=require('./conexao')
-const cors= require('cors')
+require(`dotenv`).config()
+
+const express = require(`express`)
+const cors = require(`cors`)
+const knex = require(`./conexao`)
 
 const app = express()
-app.use(cors())
+
+
 app.use(express.json())
+app.use(cors())
 
-app.get('/',async(req,res)=>{
-    try{
-     const carros = await knex('carros')
-     return res.json(carros)
-    } catch(error){
-         console.log(error)
-        return res.status(500).json({mensagem:'erro servidor'})
+app.get(`/`, async (req, res) => {
+
+    try {
+        const nomes = await knex('nomes')
+        res.status(202).json(nomes)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(`Erro no Servidor. Tente novamente!`)
     }
-  
 })
-const port = process.env.PORT||3000
 
-app.listen(port,()=>{
-    console.log(`Servidor em pé na porta ${port}`)
-})
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT)
